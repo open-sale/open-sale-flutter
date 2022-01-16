@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '/models/Product.dart';
+import '/models/product.dart';
 
 import '/constants.dart';
 
@@ -25,13 +25,13 @@ class AddToCart extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(18),
               border: Border.all(
-                color: product.color,
+                color: Color(int.parse("0xff" +product.color)),
               ),
             ),
             child: IconButton(
               icon: SvgPicture.asset(
                 "assets/icons/add_to_cart.svg",
-                color: product.color,
+                color: Color(int.parse("0xff" +product.color)),
               ),
               onPressed: () {},
             ),
