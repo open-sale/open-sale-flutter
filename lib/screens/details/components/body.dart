@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '/constants.dart';
-import '/models/Product.dart';
+import '/models/product.dart';
 
 import 'add_to_cart.dart';
 import 'color_and_size.dart';
@@ -31,7 +31,7 @@ class Body extends StatelessWidget {
                     right: kDefaultPaddin,
                   ),
                   // height: 500,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(24),
@@ -41,11 +41,11 @@ class Body extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       ColorAndSize(product: product),
-                      SizedBox(height: kDefaultPaddin / 2),
+                      const SizedBox(height: kDefaultPaddin / 2),
                       Description(product: product),
-                      SizedBox(height: kDefaultPaddin / 2),
-                      CounterWithFavBtn(),
-                      SizedBox(height: kDefaultPaddin / 2),
+                      const SizedBox(height: kDefaultPaddin / 2),
+                      const CounterWithFavBtn(),
+                      const SizedBox(height: kDefaultPaddin / 2),
                       AddToCart(product: product)
                     ],
                   ),
