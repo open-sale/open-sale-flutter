@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '/constants.dart';
-import '/models/Product.dart';
+import '/models/product.dart';
 import '/screens/details/components/body.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -12,7 +12,7 @@ class DetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // each product have a color
-      backgroundColor: product.color,
+      backgroundColor: Color(int.parse("0xff" +product.color)),
       appBar: buildAppBar(context),
       body: Body(product: product),
     );
@@ -20,7 +20,7 @@ class DetailsScreen extends StatelessWidget {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
-      backgroundColor: product.color,
+      backgroundColor: Color(int.parse("0xff" +product.color)),
       elevation: 0,
       leading: IconButton(
         icon: SvgPicture.asset(
@@ -38,7 +38,7 @@ class DetailsScreen extends StatelessWidget {
           icon: SvgPicture.asset("assets/icons/cart.svg"),
           onPressed: () {},
         ),
-        SizedBox(width: kDefaultPaddin / 2)
+        const SizedBox(width: kDefaultPaddin / 2)
       ],
     );
   }
