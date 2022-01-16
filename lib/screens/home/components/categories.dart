@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:laracommerce/controllers/category_controller.dart';
+import 'package:laracommerce/models/category.dart';
 
 import '../../../constants.dart';
 
@@ -13,7 +16,9 @@ class Categories extends StatefulWidget {
 }
 
 class _CategoriesState extends State<Categories> {
-  List<String> categories = ["Hand bag", "Jewellery", "Footwear", "Dresses"];
+  // List<String> categories = ["Hand bag", "Jewellery", "Footwear", "Dresses"];
+  final CategoryController categoryController = Get.put(CategoryController());
+  
   // By default our first item will be selected
   int selectedIndex = 0;
   @override
@@ -22,10 +27,13 @@ class _CategoriesState extends State<Categories> {
       padding: const EdgeInsets.symmetric(vertical: kDefaultPaddin),
       child: SizedBox(
         height: 25,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: categories.length,
-          itemBuilder: (context, index) => buildCategory(index),
+        child: Obx(
+          () => ListView.builder(
+            scrollDirection: Axis.horizontal,
+            // itemCount: categories.length,
+            itemCount: categoryController.modelList.length,
+            itemBuilder: (context, index) => buildCategory(index),
+          ),
         ),
       ),
     );
@@ -44,14 +52,15 @@ class _CategoriesState extends State<Categories> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              categories[index],
+              categoryController.modelList[index].name.toString(),
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: selectedIndex == index ? kTextColor : kTextLightColor,
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: kDefaultPaddin / 4), //top padding 5
+              margin: const EdgeInsets.only(
+                  top: kDefaultPaddin / 4), //top padding 5
               height: 2,
               width: 30,
               color: selectedIndex == index ? Colors.black : Colors.transparent,
