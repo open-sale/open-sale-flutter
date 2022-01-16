@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
-import '../../../constants.dart';
-import '../../../models/Product.dart';
-import '../../details/details_screen.dart';
-import 'categorries.dart';
+import 'package:get/get.dart';
+import 'package:laracommerce/controllers/product_controller.dart';
+import '/constants.dart';
+import '/screens/details/details_screen.dart';
+import 'categories.dart';
 import 'item_card.dart';
 
 class Body extends StatelessWidget {
-  const Body({Key? key}) : super(key: key);
+  Body({Key? key}) : super(key: key);
 
+  final ProductController productController = Get.put(ProductController());
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin),
+          padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin, vertical: kDefaultPaddin/2),
           child: Text(
-            "Women",
+            "OPEN SALE",
             style: Theme.of(context)
                 .textTheme
                 .headline5!
@@ -27,28 +29,38 @@ class Body extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin),
-            child: GridView.builder(
-                itemCount: products.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            child: Obx(
+              () => SafeArea(
+                child: GridView.count(
                   crossAxisCount: 2,
                   mainAxisSpacing: kDefaultPaddin,
                   crossAxisSpacing: kDefaultPaddin,
-                  childAspectRatio: 0.75,
-                ),
-                itemBuilder: (context, index) => ItemCard(
-                      product: products[index],
-                      press: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetailsScreen(
-                            product: products[index],
+                  childAspectRatio: 0.8,
+                  padding: const EdgeInsets.all(5),
+                  children: productController.modelList.map(
+                    (item) {
+                      return ItemCard(
+                        id: item.id.toString(),
+                        name: item.name,
+                        color: item.color,
+                        image: item.image,
+                        price: item.price,
+                        press: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetailsScreen(
+                              product: item,
+                            ),
                           ),
                         ),
-                      ),
-                      // key: null,
-                    )),
+                      );
+                    },
+                  ).toList(), // Don't forget to add this parser, as we are working with Iterable but a list of widgets is expected
+                ),
+              ),
+            ),
           ),
-        ),
+        )
       ],
     );
   }
